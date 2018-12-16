@@ -1,14 +1,16 @@
-! George Newman, gwn266 / Final Fortran project 
+! George Newman, gwn266 / Final Fortran project [extra]
 
 program goldbach 
 implicit none
-logical :: isprime
-integer :: i,r,p,q,n=10000
-real :: start,finish,j,average
+logical   :: isprime
+integer   :: i,r,p,q,n=10000
+real      :: start,finish,j,average
 integer, dimension(11000)   :: primes
 integer, dimension(10000,3) :: triple
 integer, dimension(10000)   :: difference
 
+open(unit=1,file="results/pvalues.txt")
+open(unit=2,file="results/differences.txt")
 call cpu_time(start)
 call prime_array_generator(n,primes)
 
@@ -26,26 +28,24 @@ do i=1,10000
   enddo
 enddo
 
-
-print *, 'Prime triples displaying how every prime number is equidistant from 2 other prime numbers'
+do i=1,9998
+  write(2,*) difference(i)
+enddo
 
 do i=1,9998
-!  print *, 'Triple (r,p,q): ', triple(i,:)
-  print *, 'Difference: ', difference(i)
+  write(1,*) triple(i,2)
 enddo
 
 
-print *
-print *, 'Difference Statistics:'
-print *, 'Average: ', (sum(difference)/size(difference))
-print *, 'Maximum: ', maxval(difference)
-print *, 'Minimum: ', minval(difference)
-print * 
-
-
+write(1,*)
+write(1,*) 'Difference Statistics:'
+write(1,*) 'Average: ', (sum(difference)/size(difference))
+write(1,*) 'Maximum: ', maxval(difference)
+write(1,*) 'Minimum: ', minval(difference)
+write(1,*) 
 
 call cpu_time(finish)
-print *, "Time elapsed: ", finish-start
+write(1,*) "Time elapsed: ", finish-start
 
 
 contains
@@ -80,9 +80,7 @@ end subroutine
 
 logical function is_prime(x)
   real :: x,i
-
   is_prime = .true.
-
   if (x==0) then
     is_prime = .false.
   elseif (x==1) then
