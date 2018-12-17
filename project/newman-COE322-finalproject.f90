@@ -27,11 +27,11 @@ do i=1,10000
 enddo
 
 
-print *, 'Prime triples displaying how every prime number is equidistant from 2 other prime numbers'
+print *, 'Triples displaying how every prime number is equidistant from 2 other primes'
 
 do i=1,9998
-!  print *, 'Triple (r,p,q): ', triple(i,:)
-  print *, 'Difference: ', difference(i)
+  print *, 'Triple (r,p,q): ', triple(i,:)
+!  print *, 'Difference: ', difference(i)
 enddo
 
 
@@ -75,8 +75,6 @@ subroutine prime_array_generator(n,primeArray)
     i = i+1
   enddo
 end subroutine
-
-
 
 logical function is_prime(x)
   real :: x,i

@@ -1,3 +1,0 @@
-answer questions. 
-
-maybe export difference data and p data to matlab and plot difference vs p to see if it actually increases with p increase 
